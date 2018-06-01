@@ -1,0 +1,13 @@
+config/endian
+config/gethostname
+config/socklen_t
+config/strdup
+config/config.h
+configure-stamp
+*.o
+cntlm
+.DS_Store
+*.swp
+*~.nib
+build/
+xcuserdata
