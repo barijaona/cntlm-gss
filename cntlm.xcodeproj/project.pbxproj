@@ -1,0 +1,508 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3ACDC41B20C2ABB800CCF844 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ACDC41A20C2ABB800CCF844 /* main.c */; };
+		3ACDC42120C2F56D00CCF844 /* GSS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACDC42020C2F56D00CCF844 /* GSS.framework */; };
+		3ACDC42320C300CD00CCF844 /* Kerberos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACDC42220C300CC00CCF844 /* Kerberos.framework */; };
+		3AD3008620C29C6700A1DDF9 /* auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3000E20C29C6000A1DDF9 /* auth.c */; };
+		3AD3008720C29C6700A1DDF9 /* acl.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3001820C29C6000A1DDF9 /* acl.c */; };
+		3AD3008920C29C6700A1DDF9 /* scanner.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3001E20C29C6000A1DDF9 /* scanner.c */; };
+		3AD3008A20C29C6700A1DDF9 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3002120C29C6000A1DDF9 /* utils.c */; };
+		3AD3008E20C29C6700A1DDF9 /* xcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3002820C29C6100A1DDF9 /* xcrypt.c */; };
+		3AD3009620C29C6700A1DDF9 /* config.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3003F20C29C6200A1DDF9 /* config.c */; };
+		3AD3009820C29C6700A1DDF9 /* kerberos.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3004520C29C6200A1DDF9 /* kerberos.c */; };
+		3AD3009B20C29C6700A1DDF9 /* forward.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3004C20C29C6300A1DDF9 /* forward.c */; };
+		3AD3009C20C29C6700A1DDF9 /* direct.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3004F20C29C6300A1DDF9 /* direct.c */; };
+		3AD3009D20C29C6700A1DDF9 /* pages.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3005020C29C6300A1DDF9 /* pages.c */; };
+		3AD300A320C29C6700A1DDF9 /* ntlm.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3005C20C29C6500A1DDF9 /* ntlm.c */; };
+		3AD300A420C29C6700A1DDF9 /* socket.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3005E20C29C6500A1DDF9 /* socket.c */; };
+		3AD300A920C29C6700A1DDF9 /* http.c in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3008020C29C6700A1DDF9 /* http.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3A10A19120C2984A00A7BDBC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3A10A19320C2984A00A7BDBC /* cntlm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cntlm; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ACDC41A20C2ABB800CCF844 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		3ACDC42020C2F56D00CCF844 /* GSS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GSS.framework; path = System/Library/Frameworks/GSS.framework; sourceTree = SDKROOT; };
+		3ACDC42220C300CC00CCF844 /* Kerberos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kerberos.framework; path = System/Library/Frameworks/Kerberos.framework; sourceTree = SDKROOT; };
+		3AD3000E20C29C6000A1DDF9 /* auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auth.c; sourceTree = "<group>"; };
+		3AD3000F20C29C6000A1DDF9 /* swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swap.h; sourceTree = "<group>"; };
+		3AD3001120C29C6000A1DDF9 /* resources.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = resources.rc; sourceTree = "<group>"; };
+		3AD3001220C29C6000A1DDF9 /* setup.iss.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = setup.iss.in; sourceTree = "<group>"; };
+		3AD3001320C29C6000A1DDF9 /* Support Website.url */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Support Website.url"; sourceTree = "<group>"; };
+		3AD3001420C29C6000A1DDF9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		3AD3001520C29C6000A1DDF9 /* Software Updates.url */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Software Updates.url"; sourceTree = "<group>"; };
+		3AD3001620C29C6000A1DDF9 /* Cntlm Homepage.url */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Cntlm Homepage.url"; sourceTree = "<group>"; };
+		3AD3001720C29C6000A1DDF9 /* cntlm.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = cntlm.ico; sourceTree = "<group>"; };
+		3AD3001820C29C6000A1DDF9 /* acl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = acl.c; sourceTree = "<group>"; };
+		3AD3001B20C29C6000A1DDF9 /* http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http.h; sourceTree = "<group>"; };
+		3AD3001E20C29C6000A1DDF9 /* scanner.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scanner.c; sourceTree = "<group>"; };
+		3AD3002020C29C6000A1DDF9 /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scanner.h; sourceTree = "<group>"; };
+		3AD3002120C29C6000A1DDF9 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		3AD3002220C29C6000A1DDF9 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
+		3AD3002320C29C6000A1DDF9 /* configure */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = configure; sourceTree = "<group>"; };
+		3AD3002620C29C6000A1DDF9 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		3AD3002820C29C6100A1DDF9 /* xcrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xcrypt.c; sourceTree = "<group>"; };
+		3AD3002C20C29C6100A1DDF9 /* acl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acl.h; sourceTree = "<group>"; };
+		3AD3002E20C29C6100A1DDF9 /* cntlm.init */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cntlm.init; sourceTree = "<group>"; };
+		3AD3002F20C29C6100A1DDF9 /* rules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = rules; sourceTree = "<group>"; };
+		3AD3003020C29C6100A1DDF9 /* cntlm.spec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cntlm.spec; sourceTree = "<group>"; };
+		3AD3003120C29C6100A1DDF9 /* cntlm.sysconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cntlm.sysconfig; sourceTree = "<group>"; };
+		3AD3003320C29C6100A1DDF9 /* gethostname.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gethostname.c; sourceTree = "<group>"; };
+		3AD3003420C29C6100A1DDF9 /* strdup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strdup.c; sourceTree = "<group>"; };
+		3AD3003520C29C6100A1DDF9 /* endian.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = endian.c; sourceTree = "<group>"; };
+		3AD3003620C29C6100A1DDF9 /* socklen_t.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socklen_t.c; sourceTree = "<group>"; };
+		3AD3003C20C29C6100A1DDF9 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		3AD3003D20C29C6200A1DDF9 /* xcrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xcrypt.h; sourceTree = "<group>"; };
+		3AD3003F20C29C6200A1DDF9 /* config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = config.c; sourceTree = "<group>"; };
+		3AD3004120C29C6200A1DDF9 /* Makefile.xlc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.xlc; sourceTree = "<group>"; };
+		3AD3004220C29C6200A1DDF9 /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
+		3AD3004420C29C6200A1DDF9 /* pages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pages.h; sourceTree = "<group>"; };
+		3AD3004520C29C6200A1DDF9 /* kerberos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kerberos.c; sourceTree = "<group>"; };
+		3AD3004B20C29C6300A1DDF9 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		3AD3004C20C29C6300A1DDF9 /* forward.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = forward.c; sourceTree = "<group>"; };
+		3AD3004D20C29C6300A1DDF9 /* forward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forward.h; sourceTree = "<group>"; };
+		3AD3004E20C29C6300A1DDF9 /* direct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = direct.h; sourceTree = "<group>"; };
+		3AD3004F20C29C6300A1DDF9 /* direct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = direct.c; sourceTree = "<group>"; };
+		3AD3005020C29C6300A1DDF9 /* pages.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pages.c; sourceTree = "<group>"; };
+		3AD3005120C29C6400A1DDF9 /* kerberos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kerberos.h; sourceTree = "<group>"; };
+		3AD3005C20C29C6500A1DDF9 /* ntlm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ntlm.c; sourceTree = "<group>"; };
+		3AD3005E20C29C6500A1DDF9 /* socket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socket.c; sourceTree = "<group>"; };
+		3AD3005F20C29C6500A1DDF9 /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.h; sourceTree = "<group>"; };
+		3AD3006620C29C6600A1DDF9 /* compat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = compat; sourceTree = "<group>"; };
+		3AD3006720C29C6600A1DDF9 /* changelog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog; sourceTree = "<group>"; };
+		3AD3006820C29C6600A1DDF9 /* prerm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = prerm; sourceTree = "<group>"; };
+		3AD3006920C29C6600A1DDF9 /* docs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = docs; sourceTree = "<group>"; };
+		3AD3006A20C29C6600A1DDF9 /* cntlm.init */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cntlm.init; sourceTree = "<group>"; };
+		3AD3006B20C29C6600A1DDF9 /* rules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rules; sourceTree = "<group>"; };
+		3AD3006C20C29C6600A1DDF9 /* postinst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinst; sourceTree = "<group>"; };
+		3AD3006D20C29C6600A1DDF9 /* lintian-override */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "lintian-override"; sourceTree = "<group>"; };
+		3AD3006E20C29C6600A1DDF9 /* watch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = watch; sourceTree = "<group>"; };
+		3AD3006F20C29C6600A1DDF9 /* copyright */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copyright; sourceTree = "<group>"; };
+		3AD3007020C29C6600A1DDF9 /* postrm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postrm; sourceTree = "<group>"; };
+		3AD3007120C29C6600A1DDF9 /* dirs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dirs; sourceTree = "<group>"; };
+		3AD3007220C29C6600A1DDF9 /* control */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = control; sourceTree = "<group>"; };
+		3AD3007320C29C6600A1DDF9 /* cntlm.default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cntlm.default; sourceTree = "<group>"; };
+		3AD3007520C29C6600A1DDF9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3AD3007720C29C6600A1DDF9 /* cntlm.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = cntlm.1; sourceTree = "<group>"; };
+		3AD3007820C29C6600A1DDF9 /* cntlm.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cntlm.conf; sourceTree = "<group>"; };
+		3AD3007920C29C6600A1DDF9 /* valgrind.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = valgrind.txt; sourceTree = "<group>"; };
+		3AD3008020C29C6700A1DDF9 /* http.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http.c; sourceTree = "<group>"; };
+		3AD3008320C29C6700A1DDF9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		3AD3008420C29C6700A1DDF9 /* ntlm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ntlm.h; sourceTree = "<group>"; };
+		3AD3008520C29C6700A1DDF9 /* auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auth.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A10A19020C2984A00A7BDBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ACDC42320C300CD00CCF844 /* Kerberos.framework in Frameworks */,
+				3ACDC42120C2F56D00CCF844 /* GSS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A10A18A20C2984A00A7BDBC = {
+			isa = PBXGroup;
+			children = (
+				3AD3000D20C29C4100A1DDF9 /* cntlm */,
+				3A10A19420C2984A00A7BDBC /* Products */,
+				3ACDC41F20C2F56D00CCF844 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3A10A19420C2984A00A7BDBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A10A19320C2984A00A7BDBC /* cntlm */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3ACDC41F20C2F56D00CCF844 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3ACDC42220C300CC00CCF844 /* Kerberos.framework */,
+				3ACDC42020C2F56D00CCF844 /* GSS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3AD3000D20C29C4100A1DDF9 /* cntlm */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3001820C29C6000A1DDF9 /* acl.c */,
+				3AD3002C20C29C6100A1DDF9 /* acl.h */,
+				3AD3000E20C29C6000A1DDF9 /* auth.c */,
+				3AD3008520C29C6700A1DDF9 /* auth.h */,
+				3AD3003220C29C6100A1DDF9 /* config */,
+				3AD3003F20C29C6200A1DDF9 /* config.c */,
+				3AD3003C20C29C6100A1DDF9 /* config.h */,
+				3AD3002320C29C6000A1DDF9 /* configure */,
+				3AD3006520C29C6600A1DDF9 /* debian */,
+				3AD3004F20C29C6300A1DDF9 /* direct.c */,
+				3AD3004E20C29C6300A1DDF9 /* direct.h */,
+				3AD3007620C29C6600A1DDF9 /* doc */,
+				3AD3004C20C29C6300A1DDF9 /* forward.c */,
+				3AD3004D20C29C6300A1DDF9 /* forward.h */,
+				3AD3004220C29C6200A1DDF9 /* globals.h */,
+				3AD3008020C29C6700A1DDF9 /* http.c */,
+				3AD3001B20C29C6000A1DDF9 /* http.h */,
+				3AD3004520C29C6200A1DDF9 /* kerberos.c */,
+				3AD3005120C29C6400A1DDF9 /* kerberos.h */,
+				3ACDC41A20C2ABB800CCF844 /* main.c */,
+				3AD3002620C29C6000A1DDF9 /* Makefile */,
+				3AD3004120C29C6200A1DDF9 /* Makefile.xlc */,
+				3AD3005C20C29C6500A1DDF9 /* ntlm.c */,
+				3AD3008420C29C6700A1DDF9 /* ntlm.h */,
+				3AD3005020C29C6300A1DDF9 /* pages.c */,
+				3AD3004420C29C6200A1DDF9 /* pages.h */,
+				3AD3008320C29C6700A1DDF9 /* README */,
+				3AD3007520C29C6600A1DDF9 /* README.md */,
+				3AD3002D20C29C6100A1DDF9 /* rpm */,
+				3AD3001E20C29C6000A1DDF9 /* scanner.c */,
+				3AD3002020C29C6000A1DDF9 /* scanner.h */,
+				3AD3005E20C29C6500A1DDF9 /* socket.c */,
+				3AD3005F20C29C6500A1DDF9 /* socket.h */,
+				3AD3000F20C29C6000A1DDF9 /* swap.h */,
+				3AD3002120C29C6000A1DDF9 /* utils.c */,
+				3AD3004B20C29C6300A1DDF9 /* utils.h */,
+				3AD3002220C29C6000A1DDF9 /* VERSION */,
+				3AD3001020C29C6000A1DDF9 /* win */,
+				3AD3002820C29C6100A1DDF9 /* xcrypt.c */,
+				3AD3003D20C29C6200A1DDF9 /* xcrypt.h */,
+			);
+			name = cntlm;
+			sourceTree = "<group>";
+		};
+		3AD3001020C29C6000A1DDF9 /* win */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3001120C29C6000A1DDF9 /* resources.rc */,
+				3AD3001220C29C6000A1DDF9 /* setup.iss.in */,
+				3AD3001320C29C6000A1DDF9 /* Support Website.url */,
+				3AD3001420C29C6000A1DDF9 /* README.txt */,
+				3AD3001520C29C6000A1DDF9 /* Software Updates.url */,
+				3AD3001620C29C6000A1DDF9 /* Cntlm Homepage.url */,
+				3AD3001720C29C6000A1DDF9 /* cntlm.ico */,
+			);
+			path = win;
+			sourceTree = "<group>";
+		};
+		3AD3002D20C29C6100A1DDF9 /* rpm */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3002E20C29C6100A1DDF9 /* cntlm.init */,
+				3AD3002F20C29C6100A1DDF9 /* rules */,
+				3AD3003020C29C6100A1DDF9 /* cntlm.spec */,
+				3AD3003120C29C6100A1DDF9 /* cntlm.sysconfig */,
+			);
+			path = rpm;
+			sourceTree = "<group>";
+		};
+		3AD3003220C29C6100A1DDF9 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3003320C29C6100A1DDF9 /* gethostname.c */,
+				3AD3003420C29C6100A1DDF9 /* strdup.c */,
+				3AD3003520C29C6100A1DDF9 /* endian.c */,
+				3AD3003620C29C6100A1DDF9 /* socklen_t.c */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		3AD3006520C29C6600A1DDF9 /* debian */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3006620C29C6600A1DDF9 /* compat */,
+				3AD3006720C29C6600A1DDF9 /* changelog */,
+				3AD3006820C29C6600A1DDF9 /* prerm */,
+				3AD3006920C29C6600A1DDF9 /* docs */,
+				3AD3006A20C29C6600A1DDF9 /* cntlm.init */,
+				3AD3006B20C29C6600A1DDF9 /* rules */,
+				3AD3006C20C29C6600A1DDF9 /* postinst */,
+				3AD3006D20C29C6600A1DDF9 /* lintian-override */,
+				3AD3006E20C29C6600A1DDF9 /* watch */,
+				3AD3006F20C29C6600A1DDF9 /* copyright */,
+				3AD3007020C29C6600A1DDF9 /* postrm */,
+				3AD3007120C29C6600A1DDF9 /* dirs */,
+				3AD3007220C29C6600A1DDF9 /* control */,
+				3AD3007320C29C6600A1DDF9 /* cntlm.default */,
+			);
+			path = debian;
+			sourceTree = "<group>";
+		};
+		3AD3007620C29C6600A1DDF9 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3007720C29C6600A1DDF9 /* cntlm.1 */,
+				3AD3007820C29C6600A1DDF9 /* cntlm.conf */,
+				3AD3007920C29C6600A1DDF9 /* valgrind.txt */,
+			);
+			path = doc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3A10A19220C2984A00A7BDBC /* cntlm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A10A19A20C2984A00A7BDBC /* Build configuration list for PBXNativeTarget "cntlm" */;
+			buildPhases = (
+				3ACDC41E20C2E78900CCF844 /* ShellScript */,
+				3A10A18F20C2984A00A7BDBC /* Sources */,
+				3A10A19020C2984A00A7BDBC /* Frameworks */,
+				3A10A19120C2984A00A7BDBC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = cntlm;
+			productName = cntlm;
+			productReference = 3A10A19320C2984A00A7BDBC /* cntlm */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3A10A18B20C2984A00A7BDBC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Barijaona Ramaholimihaso";
+				TargetAttributes = {
+					3A10A19220C2984A00A7BDBC = {
+						CreatedOnToolsVersion = 9.4;
+					};
+				};
+			};
+			buildConfigurationList = 3A10A18E20C2984A00A7BDBC /* Build configuration list for PBXProject "cntlm" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3A10A18A20C2984A00A7BDBC;
+			productRefGroup = 3A10A19420C2984A00A7BDBC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3A10A19220C2984A00A7BDBC /* cntlm */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3ACDC41E20C2E78900CCF844 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT\n$SRCROOT/configure --enable-kerberos\n\nVER=`cat $SRCROOT/VERSION`\nprintf \"\\n#define VERSION \\\"\"$VER\"\\\"\\n\" >> config/config.h\nprintf \"#define SYSCONFDIR \\\"/usr/local/etc\\\"\\n\" >> config/config.h";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3A10A18F20C2984A00A7BDBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD300A920C29C6700A1DDF9 /* http.c in Sources */,
+				3AD3008E20C29C6700A1DDF9 /* xcrypt.c in Sources */,
+				3AD3008720C29C6700A1DDF9 /* acl.c in Sources */,
+				3AD300A320C29C6700A1DDF9 /* ntlm.c in Sources */,
+				3AD3009B20C29C6700A1DDF9 /* forward.c in Sources */,
+				3AD3009D20C29C6700A1DDF9 /* pages.c in Sources */,
+				3AD300A420C29C6700A1DDF9 /* socket.c in Sources */,
+				3AD3008A20C29C6700A1DDF9 /* utils.c in Sources */,
+				3AD3008920C29C6700A1DDF9 /* scanner.c in Sources */,
+				3AD3008620C29C6700A1DDF9 /* auth.c in Sources */,
+				3ACDC41B20C2ABB800CCF844 /* main.c in Sources */,
+				3AD3009C20C29C6700A1DDF9 /* direct.c in Sources */,
+				3AD3009820C29C6700A1DDF9 /* kerberos.c in Sources */,
+				3AD3009620C29C6700A1DDF9 /* config.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3A10A19820C2984A00A7BDBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3A10A19920C2984A00A7BDBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3A10A19B20C2984A00A7BDBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3A10A19C20C2984A00A7BDBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3A10A18E20C2984A00A7BDBC /* Build configuration list for PBXProject "cntlm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A10A19820C2984A00A7BDBC /* Debug */,
+				3A10A19920C2984A00A7BDBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A10A19A20C2984A00A7BDBC /* Build configuration list for PBXNativeTarget "cntlm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A10A19B20C2984A00A7BDBC /* Debug */,
+				3A10A19C20C2984A00A7BDBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3A10A18B20C2984A00A7BDBC /* Project object */;
+}
