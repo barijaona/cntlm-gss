@@ -61,11 +61,11 @@ struct auth_s *copy_auth(struct auth_s *dst, struct auth_s *src, int fullcopy) {
 
 	if (fullcopy) {
 		strlcpy(dst->user, src->user, MINIBUF_SIZE);
-		if (src->passntlm2)
+		if (src->passntlm2[0])
 			memcpy(dst->passntlm2, src->passntlm2, MINIBUF_SIZE);
-		if (src->passnt)
+		if (src->passnt[0])
 			memcpy(dst->passnt, src->passnt, MINIBUF_SIZE);
-		if (src->passlm)
+		if (src->passlm[0])
 			memcpy(dst->passlm, src->passlm, MINIBUF_SIZE);
 	} else {
 		memset(dst->user, 0, MINIBUF_SIZE);
@@ -103,19 +103,19 @@ void dump_auth(struct auth_s *creds) {
 	printf("HashNT:     %d\n", creds->hashnt);
 	printf("HashLM:     %d\n", creds->hashlm);
 	printf("Flags:      %X\n", creds->flags);
-	if (creds->passntlm2) {
+	if (creds->passntlm2[0]) {
 		tmp = printmem(creds->passntlm2, 16, 8);
 		printf("PassNTLMv2: %s\n", tmp);
 		free(tmp);
 	}
 
-	if (creds->passnt) {
+	if (creds->passnt[0]) {
 		tmp = printmem(creds->passnt, 16, 8);
 		printf("PassNT:     %s\n", tmp);
 		free(tmp);
 	}
 
-	if (creds->passlm) {
+	if (creds->passlm[0]) {
 		tmp = printmem(creds->passlm, 16, 8);
 		printf("PassLM:     %s\n\n", tmp);
 		free(tmp);

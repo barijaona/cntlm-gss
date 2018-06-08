@@ -336,10 +336,10 @@ int acquire_credential(struct auth_s *credentials) {
 	char *password = credentials->passnt;
 
 	//!(g_creds->haskrb & KRB_CREDENTIAL_AVAILABLE)
-	if (credentials->user && password) {
+	if (credentials->user[0] && password) {
 		char name[BUFSIZ];
 		strcpy(name, credentials->user);
-		if (credentials->domain) {
+		if (credentials->domain[0]) {
 			strcat(name, "@");
 			strcat(name, credentials->domain);
 		}

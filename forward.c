@@ -905,7 +905,7 @@ void magic_auth_detect(const char *url) {
 	tcreds = new_auth();
 	copy_auth(tcreds, g_creds, /* fullcopy */ 1);
 
-	if (!tcreds->passnt || !tcreds->passlm || !tcreds->passntlm2) {
+	if (!tcreds->passnt[0] || !tcreds->passlm[0] || !tcreds->passntlm2[0]) {
 		printf("Cannot detect NTLM dialect - password or all its hashes must be defined, try -I\n");
 		exit(1);
 	}

@@ -1330,19 +1330,19 @@ int main(int argc, char **argv) {
 	}
 
 	if (interactivehash) {
-		if (g_creds->passlm) {
+		if (g_creds->passlm[0]) {
 			tmp = printmem(g_creds->passlm, 16, 8);
 			printf("PassLM          %s\n", tmp);
 			free(tmp);
 		}
 
-		if (g_creds->passnt) {
+		if (g_creds->passnt[0]) {
 			tmp = printmem(g_creds->passnt, 16, 8);
 			printf("PassNT          %s\n", tmp);
 			free(tmp);
 		}
 
-		if (g_creds->passntlm2) {
+		if (g_creds->passntlm2[0]) {
 			tmp = printmem(g_creds->passntlm2, 16, 8);
 			printf("PassNTLMv2      %s    # Only for user '%s', domain '%s'\n",
 				tmp, g_creds->user, g_creds->domain);
@@ -1358,9 +1358,9 @@ int main(int argc, char **argv) {
 #ifdef ENABLE_KERBEROS
 			!g_creds->haskrb &&
 #endif
-			((g_creds->hashnt && !g_creds->passnt)
-		     || (g_creds->hashlm && !g_creds->passlm)
-		     || (g_creds->hashntlm2 && !g_creds->passntlm2))) {
+			((g_creds->hashnt && !g_creds->passnt[0])
+		     || (g_creds->hashlm && !g_creds->passlm[0])
+		     || (g_creds->hashntlm2 && !g_creds->passntlm2[0]))) {
 		syslog(LOG_ERR, "Parent proxy account password (or required hashes) missing.\n");
 		myexit(1);
 	}
