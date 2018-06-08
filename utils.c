@@ -665,6 +665,7 @@ char *strdup(const char *src) {
  * More intuitive version of strncpy with string termination
  * from OpenBSD
  */
+#ifndef strlcpy
 size_t strlcpy(char *dst, const char *src, size_t siz) {
         char *d = dst;
         const char *s = src;
@@ -687,11 +688,13 @@ size_t strlcpy(char *dst, const char *src, size_t siz) {
 
         return (s - src - 1);        /* count does not include NUL */
 }
+#endif
 
 /*
  * More intuitive version os strncat with string termination
  * from OpenBSD
  */
+#ifndef strlcat
 size_t strlcat(char *dst, const char *src, size_t siz) {
         char *d = dst;
         const char *s = src;
@@ -719,6 +722,7 @@ size_t strlcat(char *dst, const char *src, size_t siz) {
 
         return (dlen + (s - src));        /* count does not include NUL */
 }
+#endif
 
 /*
  * Shortcut for malloc/memset zero.

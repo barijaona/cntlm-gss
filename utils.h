@@ -134,8 +134,12 @@ extern hlist_t hlist_free(hlist_t list);
 extern void hlist_dump(hlist_t list);
 
 extern char *substr(const char *src, int pos, int len);
+#ifndef strlcpy
 extern size_t strlcpy(char *dst, const char *src, size_t siz);
+#endif
+#ifndef strlcat
 extern size_t strlcat(char *dst, const char *src, size_t siz);
+#endif
 extern char *trimr(char *buf);
 extern char *lowercase(char *str);
 extern char *uppercase(char *str);
