@@ -52,6 +52,9 @@ struct auth_s *copy_auth(struct auth_s *dst, struct auth_s *src, int fullcopy) {
 	dst->hashnt = src->hashnt;
 	dst->hashlm = src->hashlm;
 	dst->flags = src->flags;
+#ifdef ENABLE_KERBEROS
+	dst->haskrb = src->haskrb;
+#endif
 
 	strlcpy(dst->domain, src->domain, MINIBUF_SIZE);
 	strlcpy(dst->workstation, src->workstation, MINIBUF_SIZE);

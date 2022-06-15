@@ -38,6 +38,10 @@
 #include "scanner.h"
 #include "pages.h"
 
+#ifdef ENABLE_KERBEROS
+#include "kerberos.h"
+#endif
+
 int parent_curr = 0;
 pthread_mutex_t parent_mtx = PTHREAD_MUTEX_INITIALIZER;
 
@@ -49,6 +53,11 @@ pthread_mutex_t parent_mtx = PTHREAD_MUTEX_INITIALIZER;
  *
  * Writes required credentials into passed auth_s structure
  */
+
+#ifdef ENABLE_KERBEROS
+proxy_t *curr_proxy;
+#endif
+
 int proxy_connect(struct auth_s *credentials) {
 	proxy_t *aux;
 	int i, prev;
@@ -91,6 +100,12 @@ int proxy_connect(struct auth_s *credentials) {
 			aux = (proxy_t *)plist_get(parent_list, ++parent_curr);
 			pthread_mutex_unlock(&parent_mtx);
 			syslog(LOG_ERR, "Proxy connect failed, will try %s:%d\n", aux->hostname, aux->port);
+
+#ifdef ENABLE_KERBEROS
+		} else {
+			//kerberos needs the hostname of the parent proxy for generate the token, so we keep it
+			curr_proxy = aux;
+#endif
 		}
 	} while (i < 0 && ++loop < parent_count);
 
@@ -142,12 +157,27 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 
 	buf = new(BUFSIZE);
 
-	strcpy(buf, "NTLM ");
-	len = ntlm_request(&tmp, credentials);
-	if (len) {
-		to_base64(MEM(buf, uint8_t, 5), MEM(tmp, uint8_t, 0), len, BUFSIZE-5);
-		free(tmp);
+#ifdef ENABLE_KERBEROS
+	if(g_creds->haskrb && acquire_kerberos_token(curr_proxy, credentials, buf)) {
+		// pre auth, we try to authenticate directly with kerberos, without to ask if auth is needed
+		// we assume that if kdc releases a ticket for the proxy, then the proxy is configured for kerberos auth
+		// drawback is that later in the code cntlm logs that no auth is required because we have already authenticated
+		if (debug)
+			printf("Using Negotiation ...\n");
 	}
+	else {
+#endif
+
+		strcpy(buf, "NTLM ");
+		len = ntlm_request(&tmp, credentials);
+		if (len) {
+			to_base64(MEM(buf, uint8_t, 5), MEM(tmp, uint8_t, 0), len, BUFSIZE-5);
+			free(tmp);
+		}
+
+#ifdef ENABLE_KERBEROS
+	}
+#endif
 
 	auth = dup_rr_data(request);
 	auth->headers = hlist_mod(auth->headers, "Proxy-Authorization", buf, 1);
@@ -230,32 +260,45 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 			goto bailout;
 		}
 		tmp = hlist_get(auth->headers, "Proxy-Authenticate");
+
 		if (tmp) {
-			challenge = new(strlen(tmp) + 5 + 1);
-			len = from_base64(challenge, tmp + 5);
-			if (len > NTLM_CHALLENGE_MIN) {
-				len = ntlm_response(&tmp, challenge, len, credentials);
-				if (len > 0) {
-					strcpy(buf, "NTLM ");
-					to_base64(MEM(buf, uint8_t, 5), MEM(tmp, uint8_t, 0), len, BUFSIZE-5);
-					request->headers = hlist_mod(request->headers, "Proxy-Authorization", buf, 1);
-					free(tmp);
+#ifdef ENABLE_KERBEROS		
+			if(g_creds->haskrb && strncasecmp(tmp, "NEGOTIATE", 9) == 0 && acquire_kerberos_token(curr_proxy, credentials, buf)) {
+				if (debug)
+					printf("Using Negotiation ...\n");
+
+				request->headers = hlist_mod(request->headers, "Proxy-Authorization", buf, 1);
+				free(tmp);
+			}
+			else {
+#endif			
+				challenge = new(strlen(tmp) + 5 + 1);
+				len = from_base64(challenge, tmp + 5);
+				if (len > NTLM_CHALLENGE_MIN) {
+					len = ntlm_response(&tmp, challenge, len, credentials);
+					if (len > 0) {
+						strcpy(buf, "NTLM ");
+						to_base64(MEM(buf, uint8_t, 5), MEM(tmp, uint8_t, 0), len, BUFSIZE-5);
+						request->headers = hlist_mod(request->headers, "Proxy-Authorization", buf, 1);
+						free(tmp);
+					} else {
+						syslog(LOG_ERR, "No target info block. Cannot do NTLMv2!\n");
+						free(challenge);
+						close(*sd);
+						goto bailout;
+					}
 				} else {
-					syslog(LOG_ERR, "No target info block. Cannot do NTLMv2!\n");
+					syslog(LOG_ERR, "Proxy returning invalid challenge!\n");
 					free(challenge);
 					close(*sd);
 					goto bailout;
 				}
-			} else {
-				syslog(LOG_ERR, "Proxy returning invalid challenge!\n");
 				free(challenge);
-				close(*sd);
-				goto bailout;
+#ifdef ENABLE_KERBEROS
 			}
-
-			free(challenge);
+#endif
 		} else {
-			syslog(LOG_WARNING, "No Proxy-Authenticate, NTLM not supported?\n");
+			syslog(LOG_WARNING, "No Proxy-Authenticate, NTLM/Negotiate not supported?\n");
 		}
 	} else if (pretend407) {
 		if (debug)
