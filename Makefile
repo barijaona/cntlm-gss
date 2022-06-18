@@ -74,6 +74,8 @@ install: $(NAME)
 	elif [ "`uname -s`" = "Darwin" ]; then \
 		install -m 755 -s $(NAME) $(BINDIR)/$(NAME); \
 		install -m 644 doc/$(NAME).1 $(MANDIR)/man1/$(NAME).1; \
+		install -m 644 net.sourceforge.cntlm.plist \
+		    /Library/LaunchAgents/net.sourceforge.cntlm.plist; \
 		[ -f $(SYSCONFDIR)/$(NAME).conf -o -z "$(SYSCONFDIR)" ] \
 			|| install -m 600 doc/$(NAME).conf $(SYSCONFDIR)/$(NAME).conf; \
 	else \
