@@ -2,6 +2,8 @@
 
 This is [Cntlm](http://cntlm.sourceforge.net/) **with Kerberos patch applied**.
 
+This version also includes improvements made by the original author, David Kubicek, between November 2011 and April 2012, which were published at http://svn.awk.cz/cntlm
+
 Dependency: [Kerberos](http://web.mit.edu/kerberos/).
 
 To build:
@@ -25,6 +27,8 @@ sudo make install
 
 To run it, try `cntlm --help` or `cntlm -v` and fix whatever it complains.
 
+More documentation is available through `man cntlm`.
+
 ## Running against a proxy supporting Kerberos
 
 I have only the following lines in my ctnlm.conf file:
@@ -33,7 +37,7 @@ I have only the following lines in my ctnlm.conf file:
 Username
 Domain
 Password
-Proxy      proxy.server.domain.com:3128
+Proxy      proxy.server.domain.com:8080
 NoProxy    localhost, 127.0.0.*, 10.*, 192.168.*
 Listen     3128
 ```
@@ -43,6 +47,9 @@ The username, domain and password are all unset.
 I could start it with `cntlm -a gss` (or  `cntlm -a gss -c /path/to/cntlm.conf`).
 
 ## Running against a proxy not supporting Kerberos, but having NTLMv2 support
+
+In this case, it is recommended to set the username, the domain name and hashes of the password in the configuration file.
+
 Whenever I have to change password, I get the output of `cntlm -H`
 
 ````
@@ -58,7 +65,7 @@ and put the result into my cntlm.conf file:
 ```
 Username   <Username>
 Domain	   <domain>
-Proxy      proxy.server.domain.com:3128
+Proxy      proxy.server.domain.com:8080
 PassLM          1AD35398BE6565DDB5C4EF70C0593492
 PassNT          77B9081511704EE852F94227CF48A793
 PassNTLMv2      D5826E9C665C37C80B53397D5C07BBCB   ### Only for user 'Username', domain 'Domain'
