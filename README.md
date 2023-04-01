@@ -7,7 +7,7 @@ Dependency: [Kerberos](http://web.mit.edu/kerberos/).
 To build:
 
 ```
-./configure --enable-kerberos`
+./configure --enable-kerberos
 make
 sudo make install
 ```
@@ -16,8 +16,8 @@ sudo make install
 If Kerberos is compiled to a different location, say, $HOME/usr, compile Cntlm with:
 
 ```
-./configure --enable-kerberos`
-export LIBRARY_PATH=$HOME/usr/lib`
+./configure --enable-kerberos
+export LIBRARY_PATH=$HOME/usr/lib
 export C_INCLUDE_PATH=$HOME/usr/include
 make
 sudo make install
@@ -30,9 +30,9 @@ To run it, try `cntlm --help` or `cntlm -v` and fix whatever it complains.
 I have only the following lines in my ctnlm.conf file:
 
 ```
-Username	
-Domain		
-Password	
+Username
+Domain
+Password
 Proxy      proxy.server.domain.com:3128
 NoProxy    localhost, 127.0.0.*, 10.*, 192.168.*
 Listen     3128
@@ -44,10 +44,10 @@ I could start it with `cntlm -a gss` (or  `cntlm -a gss -c /path/to/cntlm.conf`)
 
 ## Running against a proxy not supporting Kerberos, but having NTLMv2 support
 Whenever I have to change password, I get the output of `cntlm -H`
- 
+
 ````
-% cntlm -H -u <Username> -d <Domain> 
-Password: 
+% cntlm -H -u <Username> -d <Domain>
+Password:
 PassLM          1AD35398BE6565DDB5C4EF70C0593492
 PassNT          77B9081511704EE852F94227CF48A793
 PassNTLMv2      D5826E9C665C37C80B53397D5C07BBCB   ### Only for user 'Username', domain 'Domain'
@@ -57,7 +57,7 @@ and put the result into my cntlm.conf file:
 
 ```
 Username   <Username>
-Domain	   <domain>	
+Domain	   <domain>
 Proxy      proxy.server.domain.com:3128
 PassLM          1AD35398BE6565DDB5C4EF70C0593492
 PassNT          77B9081511704EE852F94227CF48A793
@@ -74,13 +74,13 @@ The installer installs a .plist in an appropriate location. To have cntlm launch
 
 ````
 launchctl load ~/Library/LaunchAgents/net.sourceforge.cntlm.plist
-````     
+````
 
 
 To stop cntlm, for instance when I need to modify the configuration file, I issue the command:
 
 ````
 launchctl unload ~/Library/LaunchAgents/net.sourceforge.cntlm.plist
-````     
+````
 
 After modification of the .conf file, I relaunch cntlm with the above mentioned `launchctl load` command.
