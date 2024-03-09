@@ -43,11 +43,11 @@
 /**
  * acquires a kerberos token for default credential using SPN HTTP@<thost>
  */
-int acquire_kerberos_token(proxy_t* proxy, struct auth_s *credentials, char* buf);
+int acquire_kerberos_token(const char* hostname, struct auth_s *credentials, char** buf, size_t *bufsize);
 
 /**
  * checks if a default cached credential is cached
  */
-int check_credential();
+int check_credential(void);
 
 #endif /* KERBEROS_H_ */

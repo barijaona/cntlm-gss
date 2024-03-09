@@ -47,7 +47,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <syslog.h>
+#ifdef __APPLE__
+#include <GSS/GSS.h>
+#else
 #include <gssapi/gssapi.h>
+#endif
 #include <stdlib.h>
 
 /*
@@ -90,8 +94,16 @@ static void display_status_1(char *m, OM_uint32 code, int type) {
 	while (1) {
 		maj_stat = gss_display_status(&min_stat, code, type, GSS_C_NULL_OID,
 				&msg_ctx, &msg);
-		if (1)
-			syslog(LOG_ERR, "GSS-API error %s: %s\n", m, (char *) msg.value);
+		if (maj_stat == GSS_S_COMPLETE)
+			syslog(LOG_DEBUG, "GSS-API error %s: %s\n", m, (char *) msg.value);
+		else if (maj_stat == GSS_S_BAD_MECH)
+			syslog(LOG_DEBUG, "GSS-API error that could not be translated due to a bad mechanism (GSS_S_BAD_MECH)\n");
+		else if (maj_stat == GSS_S_BAD_STATUS)
+			syslog(LOG_DEBUG, "GSS-API error that is unknown (or this function was called with a wrong status type) (GSS_S_BAD_STATUS)\n");
+		else if (maj_stat == GSS_S_FAILURE)
+			syslog(LOG_DEBUG, "GSS-API error and gss_display_status failed with minor status code %lo (GSS_S_FAILURE)\n", (long unsigned int)min_stat);
+		else
+			syslog(LOG_DEBUG, "GSS-API error unrecognized return value from gss_display_status\n");
 		(void) gss_release_buffer(&min_stat, &msg);
 
 		if (!msg_ctx)
@@ -123,23 +135,18 @@ void display_status(char *msg, OM_uint32 maj_stat, OM_uint32 min_stat) {
 }
 
 void display_name(char* txt, gss_name_t *name) {
-	gss_OID mechOid = GSS_C_NO_OID;
 	OM_uint32 maj_stat;
 	OM_uint32 min_stat;
 	gss_buffer_desc out_name;
 
-//	maj_stat = gss_display_name(&min_stat, *name, &out_name, &mechOid);
 	maj_stat = gss_display_name(&min_stat, *name, &out_name, NULL);
-	if (maj_stat != GSS_S_COMPLETE) {
+	if (maj_stat != GSS_S_COMPLETE && debug) {
 		display_status("Display name", maj_stat, min_stat);
 	}
 
-	syslog(LOG_INFO, txt, (char *) out_name.value);
+	syslog(LOG_INFO, "%s %s\n", txt, (char *)out_name.value);
 
 	(void) gss_release_buffer(&min_stat, &out_name);
-
-	if (mechOid != GSS_C_NO_OID)
-		(void) gss_release_oid(&min_stat, &mechOid);
 }
 
 int acquire_name(gss_name_t *target_name, char *service_name, gss_OID oid) {
@@ -151,10 +158,12 @@ int acquire_name(gss_name_t *target_name, char *service_name, gss_OID oid) {
 
 	maj_stat = gss_import_name(&min_stat, &tmp_tok, oid, target_name);
 
-	if (maj_stat != GSS_S_COMPLETE) {
-		display_status("Parsing name", maj_stat, min_stat);
-	} else if (debug){
-		display_name("Acquired kerberos name %s\n", target_name);
+	if (debug) {
+		if (maj_stat != GSS_S_COMPLETE) {
+			display_status("Parsing name", maj_stat, min_stat);
+		} else {
+			display_name("Acquired kerberos name", target_name);
+		}
 	}
 	return maj_stat;
 }
@@ -195,8 +204,9 @@ int client_establish_context(char *service_name,
 			GSS_C_NT_HOSTBASED_SERVICE)) != GSS_S_COMPLETE)
 		return maj_stat;
 
-	if (debug)
-		display_name("SPN name %s\n", &target_name);
+	if (debug) {
+		display_name("SPN name", &target_name);
+	}
 
 	maj_stat = gss_init_sec_context(&init_min_stat, GSS_C_NO_CREDENTIAL,
 			&gss_context,
@@ -216,8 +226,9 @@ int client_establish_context(char *service_name,
 		if(maj_stat == GSS_S_CONTINUE_NEEDED){
 			//TODO
 		}
-		display_status("Initializing context", maj_stat, init_min_stat);
-
+		if (debug) {
+			display_status("Initializing context", maj_stat, init_min_stat);
+		}
 		if (gss_context == GSS_C_NO_CONTEXT)
 			gss_delete_sec_context(&min_stat, &gss_context, GSS_C_NO_BUFFER);
 		return maj_stat;
@@ -227,7 +238,7 @@ int client_establish_context(char *service_name,
 		syslog(LOG_INFO, "Got token (size=%d)\n", (int) send_tok->length);
 
 	maj_stat = gss_delete_sec_context(&min_stat, &gss_context, GSS_C_NO_BUFFER);
-	if (maj_stat != GSS_S_COMPLETE) {
+	if (maj_stat != GSS_S_COMPLETE && debug) {
 		display_status("Deleting context", maj_stat, min_stat);
 	}
 	return GSS_S_COMPLETE;//maj_stat;
@@ -238,52 +249,59 @@ int client_establish_context(char *service_name,
 /**
  * acquires a kerberos token for default credential using SPN HTTP@<thost>
  */
-int acquire_kerberos_token(proxy_t* proxy, struct auth_s *credentials,
-		char* buf) {
-	char service_name[BUFSIZE], token[BUFSIZE];
+int acquire_kerberos_token(const char* hostname, struct auth_s *credentials,
+		char** buf, size_t *bufsize) {
+	char service_name[BUFSIZE];
 	OM_uint32 ret_flags, min_stat;
 
 	if (credentials->haskrb == KRB_KO) {
 		if (debug)
-			syslog(LOG_INFO, "Skipping already failed gss auth for %s\n",
-					proxy->hostname);
+			syslog(LOG_INFO, "Skipping already failed gss auth for %s\n", hostname);
 		return 0;
 	}
 
 	if (!(credentials->haskrb & KRB_CREDENTIAL_AVAILABLE)) {
-		//try to get credential
-//		if(acquire_credential(credentials)){
-			credentials->haskrb |= check_credential();
-			if (!(credentials->haskrb & KRB_CREDENTIAL_AVAILABLE)){
-				//no credential -> no token
-				if (debug)
-					syslog(LOG_INFO, "No valid credential available\n");
-				return 0;
-			}
-//		}
+		credentials->haskrb |= check_credential();
+		if (!(credentials->haskrb & KRB_CREDENTIAL_AVAILABLE)){
+			//no credential -> no token
+			if (debug)
+				syslog(LOG_INFO, "No valid credential available\n");
+			return 0;
+		}
 	}
 
 	gss_buffer_desc send_tok;
 
-	strcpy(service_name, "HTTP@");
-	strcat(service_name, proxy->hostname);
+	strlcpy(service_name, "HTTP@", BUFSIZE);
+	strlcat(service_name, hostname, BUFSIZE);
 
 	int rc = client_establish_context(service_name, &ret_flags, &send_tok);
 
 	if (rc == GSS_S_COMPLETE) {
+		char *token = NULL;
+		size_t token_size;
 		credentials->haskrb = KRB_OK;
 
-		to_base64((unsigned char *) token, send_tok.value, send_tok.length,
-				BUFSIZE);
+		// approximately compute size of token in base64
+		token_size = 4*send_tok.length;
+		token_size /= 3;
+		token_size += 4 + 4;
+		if (token_size + 10 + 1 > *bufsize) {
+			// *bufsize must be >= token_size + length of "NEGOTIATE " (10) + null terminator (1)
+			*bufsize = token_size + 10 + 1;
+			*buf = realloc(*buf, *bufsize);
+		}
+
+		strlcpy(*buf, "NEGOTIATE ", *bufsize);
+		token = *buf + 10;
+
+		to_base64((unsigned char *)token, send_tok.value, send_tok.length, token_size);
 
 		if (debug) {
 			syslog(LOG_INFO, "Token B64 (size=%d)... %s\n",
 					(int) strlen(token), token);
 			display_ctx_flags(ret_flags);
 		}
-
-		strcpy(buf, "NEGOTIATE ");
-		strcat(buf, token);
 
 		rc=1;
 	} else {
@@ -303,7 +321,7 @@ int acquire_kerberos_token(proxy_t* proxy, struct auth_s *credentials,
 /**
  * checks if a default cached credential is cached
  */
-int check_credential() {
+int check_credential(void) {
 	OM_uint32 min_stat;
 	gss_name_t name;
 	OM_uint32 lifetime;
@@ -314,13 +332,17 @@ int check_credential() {
 	maj_stat = gss_inquire_cred(&min_stat, GSS_C_NO_CREDENTIAL, &name,
 			&lifetime, &cred_usage, &mechanisms);
 	if (maj_stat != GSS_S_COMPLETE) {
-		display_status("Inquire credential", maj_stat, min_stat);
+		if (debug) {
+			display_status("Inquire credential", maj_stat, min_stat);
+		}
 		return 0;
 	}
 	(void) gss_release_oid_set(&min_stat, &mechanisms);
 
 	if (name != NULL) {
-		display_name("Available cached credential %s\n", &name);
+		if (debug) {
+			display_name("Available cached credential", &name);
+		}
 		(void) gss_release_name(&min_stat, &name);
 		return KRB_CREDENTIAL_AVAILABLE;
 	}
