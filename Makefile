@@ -35,7 +35,11 @@ endif
 ENABLE_KERBEROS=$(shell grep -c ENABLE_KERBEROS config/config.h)
 ifeq ($(ENABLE_KERBEROS),1)
 	OBJS+=kerberos.o
+ifeq ($(OS),Darwin)
+	LDFLAGS+=-framework GSS
+else
 	LDFLAGS+=-lgssapi_krb5
+ endif
 endif
 
 #CFLAGS+=-g
