@@ -4,7 +4,11 @@ This is [Cntlm](http://cntlm.sourceforge.net/) **with Kerberos patch applied**.
 
 This version also includes improvements made by the original author, David Kubicek, between November 2011 and April 2012, which were published at http://svn.awk.cz/cntlm
 
+It is lighter than the version maintained by Sebastian Matuschka at https://github.com/versat/cntlm. It incorporates a few niceties for macOS users.
+
 Dependency: [Kerberos](http://web.mit.edu/kerberos/).
+
+## How to build
 
 To build:
 
@@ -15,7 +19,7 @@ sudo make install
 ```
 
 
-If Kerberos is compiled to a different location, say, $HOME/usr, compile Cntlm with:
+If Kerberos is compiled to a different location, say, `$HOME/usr`, compile Cntlm with:
 
 ```
 ./configure --enable-kerberos
@@ -28,6 +32,14 @@ sudo make install
 To run it, try `cntlm --help` or `cntlm -v` and fix whatever it complains.
 
 More documentation is available through `man cntlm`.
+
+### Xcode project for macOS
+
+On macOS, the __cntlm.xcodeproj__ can be opened with Xcode, as an alternative to the `.configure / make` process described above.
+
+- The project will use Xcode's default compiler (`clang`) rather than `gcc`.
+- You will find the executable inside the `~/Library/Developer/Xcode/DerivedData` folder.
+- `Release` builds  are universal binaries combining Intel and Apple Silicon code.
 
 ## Running against a proxy supporting Kerberos
 
