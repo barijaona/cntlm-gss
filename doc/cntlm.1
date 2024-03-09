@@ -5,7 +5,7 @@
 .SH SYNOPSIS
 .B cntlm
 [
-.B -AaBcDdFfgHhILlMPprSsTUuvw
+.B -AaBcDdFfGgHhILlMNOPpRrSsTUuvw
 ] [ \fIhost1\fP \fIport1\fP | \fIhost1\fP:\fIport1\fP ] ... \fIhostN\fP \fIportN\fP
 
 .SH DESCRIPTION
@@ -24,7 +24,7 @@ switch to stand-alone mode automatically (and then back again). Aside from \fIWW
 authentication, \fBcntlm\fP provides a useful feature enabling users migrate their laptops between work and
 home without changing proxy settings in their applications (using \fBcntlm\fP all the time). \fBCntlm\fP also
 integrates transparent TCP/IP port forwarding (tunneling). Each tunnel opens a new listening socket on local
-machine and and forwards all connections to the target host behind the parent proxy. Instead of these SSH-like
+machine and forwards all connections to the target host behind the parent proxy. Instead of these SSH-like
 tunnels, user can also choose a limited SOCKS5 interface.
 
 .PP
@@ -47,7 +47,7 @@ until the client <-> server connection is fully negotiated. Only then real data 
 An example of \fBcntlm\fP compared to NTLMAPS: \fBcntlm\fP gave avg 76 kB/s with peak CPU usage of 0.3%
 whereas with NTLMAPS it was avg 48 kB/s with peak CPU at 98% (Pentium M 1.8 GHz). The extreme difference in
 resource usage is one of many important benefits for laptop use. Peak memory consumption (several complex
-sites, 50 paralell connections/threads; values are in KiB):
+sites, 50 parallel connections/threads; values are in KiB):
 .nf
 .ft C
 
@@ -66,14 +66,14 @@ Valgrind's virtual CPU during a typical production lifetime of the proxy.
 
 .SH OPTIONS
 Most options can be pre-set in a configuration file. Specifying an option more than once is not an error, but
-\fBcntlm\fP ignores all occurences except the last one. This does not apply to options like\ \fB-L\fP, each of
+\fBcntlm\fP ignores all occurrences except the last one. This does not apply to options like\ \fB-L\fP, each of
 which creates a new instance of some feature. \fBCntlm\fP can be built with a hardcoded configuration file
 (e.g. /etc/cntlm.conf), which is always loaded, if possible. See\ \fB-c\fP option on how to override some or
 all of its settings.
 
 Use \fB-h\fP to see available options with short description.
 
-.TP 
+.TP
 .B -A IP/mask\ \ \ \ (Allow)
 Allow ACL rule. Together with \fB-D\fP (Deny) they are the two rules allowed in ACL policy. It is more usual
 to have this in a configuration file, but \fBCntlm\fP follows the premise that you can do the same on the
@@ -86,28 +86,30 @@ take precedence over those in the config file. In such case, you will see info a
 the list of unused options). There you can also see warnings about possibly incorrect subnet spec, that's when
 the \fIIP\fP part has more bits than you declare by \fImask\fP (e.g. 10.20.30.40/24 should be 10.20.30.0/24).
 
-.TP 
+.TP
 .B -a NTLMv2 | NTLM2SR | NT | NTLM | LM | GSS\ \ \ \ (Auth)
 Authentication type. NTLM(v2) comprises of one or two hashed responses, NT and LM or NTLM2SR or NTv2 and LMv2,
 which are computed from the password hash. Each response uses a different hashing algorithm; as new response
 types were invented, stronger algorithms were used. When you first install \fBcntlm\fP, find the strongest one
-which works for you (preferably using\ \fB-M\fP). Above they are listed from strongest to weakest. Very old
-servers or dedicated HW proxies might be unable to process anything but LM. If none of those work, see
-compatibility flags option\ \fB-F\fP or submit a Support Request.
+which works for you (preferably using\ \fB-M\fP). Above they are listed from strongest to weakest, with 
+an exception for the specific case of GSS. Very old servers or dedicated HW proxies might be unable to process
+anything but LM. If none of those work, see compatibility flags option\ \fB-F\fP or submit a Support Request.
 
 .br
 \fBIMPORTANT:\fP Although NTLMv2 is not widely adopted (i.e. enforced), it is supported on all Windows since
 NT\ 4.0\ SP4. That's for \fBa very long time\fP! I strongly suggest you use it to protect your credentials
 on-line. You should also replace plaintext \fBPassword\fP options with hashed \fBPass[NTLMv2|NT|LM]\fP
 equivalents. NTLMv2 is the most and possibly the only secure authentication of the NTLM family.
+
 .br
 \fBGSS:\fP GSS option activates the kerberos authentication. You need a cached credential (see kinit doc): per default
 the cache file is in /tmp/krb5cc_<uid>, you can override this using the environment variable KRB5CCNAME.
 In example KRB5CCNAME=FILE:/tmp/my_krb5cc_for_LDS.IT
-If GSS is specified, at each connection sends the auth token without to ask the proxy if auth is needed.
-If GSS credentials are not available will fallback to the NTLM discovery procedure
-If no Auth type is specified and there is a GSS cached credential available and the server asks for a 
-'Negotiate' auth, then a GSS token is used, else the NTLM auth is used
+.br
+If GSS is specified, at each connection \fBcntlm\fP sends the auth token without asking the proxy if auth is needed.
+If GSS credentials are not available, it will fallback to the NTLM discovery procedure.
+If no Auth type is specified and there is a GSS cached credential available and the server asks for a
+\'Negotiate\' auth, then a GSS token is used, else the NTLM auth is used.
 
 
 .ne 4
@@ -129,11 +131,12 @@ the \fBDomain\fP config/cmd-line parameter, which will then be used for all user
 domain as a part of the username. To do that and override the global domain setting, use this instead of plain
 username in the password dialog: "domain\\username".
 
+.ne 4
 .TP 
 .B -c <filename>
 Configuration file. Command-line options, if used, override its single options or are added at the top of the
 list for multi options (tunnels, parent proxies, etc) with the exception of ACLs, which are completely
-overriden. Use \fI/dev/null\fP to disable any config file.
+overridden. Use \fI/dev/null\fP to disable any config file.
 
 .TP
 .B -D IP/mask\ \ \ \ (Deny)
@@ -146,7 +149,7 @@ The domain or workgroup of the proxy account. This value can also be specified a
 
 .TP
 .B -F <flags>\ \ \ \ (Flags)
-NTLM authentication flags. This option is rater delicate and I do not recommend to change the default built-in
+NTLM authentication flags. This option is rather delicate and I do not recommend to change the default built-in
 values unless you had no success with parent proxy auth and tried magic autodetection (\fB-M\fP) and all
 possible values for the \fBAuth\fP option (\fB-a\fP). Remember that each NT/LM hash combination requires
 different flags. This option is sort of a complete "manual override" and you'll have to deal with it yourself.
@@ -200,7 +203,7 @@ password prompt is issued. Use this option only from shell.
 .TP
 .B -L [<saddr>:]<lport>:<rhost>:<rport>\ \ \ \ (Tunnel)
 Tunnel definition. The syntax is the same as in OpenSSH's local forwarding (\fB-L\fP), with a new optional
-prefix, \fIsaddr\fP - the source IP address to bind the \fIlport\fP to. \fBCntlm\fP will listen for incomming
+prefix, \fIsaddr\fP - the source IP address to bind the \fIlport\fP to. \fBCntlm\fP will listen for incoming
 connections on the local port \fIlport\fP, forwarding every new connection through the parent proxy to the
 \fIrhost\fP:\fIrport\fP (authenticating on the go). This option can be used multiple times for unlimited
 number of tunnels, with or without the \fIsaddr\fP option. See \fB-g\fP for the details concerning local port
@@ -220,7 +223,7 @@ machine running \fBcntlm\fP (possibly localhost) as proxy settings in your brows
 Most applications (including console) support the notion of proxy to connect to other hosts. On POSIX, set the
 following variables to use e.g. \fBwget(1)\fP without any trouble (fill in the actual address of \fBcntlm\fP):
 .nf
-.ft C
+.ft B
 
     $ export ftp_proxy=http://localhost:3128
     $ export http_proxy=$ftp_proxy
@@ -288,6 +291,11 @@ If SOCKS5 proxy is enabled, this option can make it accessible only to those who
 It can be used several times, to create a whole list of accounts (allowed user:pass combinations).
 
 .TP
+.B -r \fB"<name>: <value>"\fP\ \ \ \ (Header)
+Header substitution. Every client's request will be processed and any headers defined using \fB-r\fP or in the
+configuration file will be added to it. In case the header is already present, its value will be replaced.
+
+.TP
 .B -S <max_size_in_kb>\ \ \ \ (ISAScannerSize)
 Enables the plugin for transparent handling of the dreaded ISA AV scanner, which returns an interactive HTTP
 page (displaying the scanning progress) instead of the file/data you've requested, every time it feels like
@@ -317,7 +325,7 @@ If the plugin cannot parse the interactive page for some reason (unknown formatt
 page is forwarded to you - it's never "lost".
 
 .ne 6
-The keepalive header is called \fCISA-Scanner\fP and shows ISA's progress, e.g.:
+The keepalive header is called \fBISA-Scanner\fP and shows ISA's progress, e.g.:
 .nf
 .ft C
 
@@ -327,11 +335,6 @@ The keepalive header is called \fCISA-Scanner\fP and shows ISA's progress, e.g.:
     ...
 .ft P
 .fi
-
-.TP
-.B -r \fB"<name>: <value>"\fP\ \ \ \ (Header)
-Header substitution. Every client's request will be processed and any headers defined using \fB-r\fP or in the
-configuration file will be added to it. In case the header is already present, its value will be replaced.
 
 .TP
 .B -s
@@ -379,7 +382,7 @@ pound signs, etc. No escape sequences are allowed in quoted strings.
 
 There are two types of keywords, \fIlocal\fP and \fIglobal\fP. Local options specify authentication details
 per domain (or location). Global keywords apply to all sections and proxies. They should be placed before all
-sections, but it's not necessary. They are: \fCAllow, Deny, Gateway, Listen, SOCKS5Proxy, SOCKS5User,
+sections, but it's not necessary. They are: \fIAllow, Deny, Gateway, Listen, SOCKS5Proxy, SOCKS5User,
 NTLMToBasic, Tunnel\fP.
 
 All available keywords are listed here, full descriptions are in the OPTIONS section:
@@ -389,8 +392,9 @@ All available keywords are listed here, full descriptions are in the OPTIONS sec
 ACL allow rule, see \fB-A\fP.
 
 .TP
-.B Auth NTLMv2 | NTLM2SR | NT | NTLM | LM
+.B Auth NTLMv2 | NTLM2SR | NT | NTLM | LM | GSS
 Select any possible combination of NTLM hashes using a single parameter.
+GSS option activates the kerberos authentication, see \fB-a\fP.
 
 .TP
 .B Deny <IP>[/<mask>]
@@ -477,7 +481,7 @@ Create a new SOCKS5 proxy account. See \fB-R\fP for more.
 
 .TP
 .B NTLMToBasic yes|no
-Enable/disable NTLM-to-basic authenticatoin. See \fB-B\fP for more.
+Enable/disable NTLM-to-basic authentication. See \fB-B\fP for more.
 
 .TP
 .B Tunnel [<saddr>:]<lport>:<rhost>:<rport>
