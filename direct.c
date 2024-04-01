@@ -47,8 +47,6 @@ int host_connect(const char *hostname, int port) {
 
 	errno = 0;
 	if (!so_resolv(&addr, hostname)) {
-		//if (debug)
-		//	printf("so_resolv: %s failed (%d: %s)\n", hostname, h_errno, hstrerror(h_errno));
 		return -1;
 	}
 

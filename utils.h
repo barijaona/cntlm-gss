@@ -40,11 +40,6 @@
 #endif
 
 /*
-#define isalnum(c)	(isalpha(c) || isdigit(c))
-#define isspace(c)	((c) == ' ' || (c) == '\f' || (c) == '\t' || (c) == '\r' || (c) == '\n')
-*/
-
-/*
  * Solaris doesn't have LOG_PERROR
  */
 #ifndef LOG_PERROR
