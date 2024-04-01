@@ -60,7 +60,7 @@
 #include "forward.h"				/* code serving via parent proxy */
 #include "direct.h"				/* code serving directly without proxy */
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 #include "kerberos.h"
 #endif
 
@@ -880,7 +880,7 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "Usage: %s [-AaBcDdFfgHhILlMPpSsTUuvw] <proxy_host>[:]<proxy_port> ...\n", argv[0]);
 		fprintf(stderr, "\t-A  <address>[/<net>]\n"
 				"\t    ACL allow rule. IP or hostname, net must be a number (CIDR notation)\n");
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 		fprintf(stderr, "\t-a  gss | ntlm | nt | lm\n"
 				"\t    Authentication type - GSS (Kerberos), combined NTLM, just LM, or just NT.\n"
 				"\t    GSS activates kerberos auth: you need a cached credential.\n"
@@ -1203,7 +1203,7 @@ int main(int argc, char **argv) {
 			g_creds->hashnt = 2;
 			g_creds->hashlm = 0;
 			g_creds->hashntlm2 = 0;
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 		} else if (!strcasecmp("gss", cauth)) {
 			g_creds->haskrb = KRB_FORCE_USE_KRB;
 			g_creds->hashnt = 0;
@@ -1301,7 +1301,7 @@ int main(int argc, char **argv) {
 		memset(cpassword, 0, strlen(cpassword));
 	}
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 	g_creds->haskrb |= check_credential();
 	if(g_creds->haskrb & KRB_CREDENTIAL_AVAILABLE)
 		syslog(LOG_INFO, "Using cached credential for GSS auth.\n");
@@ -1355,7 +1355,7 @@ int main(int argc, char **argv) {
 	 * If we're going to need a password, check we really have it.
 	 */
 	if (!ntlmbasic &&
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 			!g_creds->haskrb &&
 #endif
 			((g_creds->hashnt && !g_creds->passnt[0])

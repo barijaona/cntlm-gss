@@ -327,7 +327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT\n$SRCROOT/configure --enable-kerberos\n\nVER=`cat $SRCROOT/VERSION`\nprintf \"\\n#define VERSION \\\"\"$VER\"\\\"\\n\" >> config/config.h\nprintf \"#define SYSCONFDIR \\\"/usr/local/etc\\\"\\n\" >> config/config.h";
+			shellScript = "cd $SRCROOT\n$SRCROOT/configure\n\nVER=`cat $SRCROOT/VERSION`\nprintf \"\\n#define VERSION \\\"\"$VER\"\\\"\\n\" >> config/config.h\nprintf \"#define SYSCONFDIR \\\"/usr/local/etc\\\"\\n\" >> config/config.h\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

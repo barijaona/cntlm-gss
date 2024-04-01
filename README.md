@@ -13,7 +13,7 @@ Dependency: [Kerberos](http://web.mit.edu/kerberos/).
 To build:
 
 ```
-./configure --enable-kerberos
+./configure
 make
 sudo make install
 ```
@@ -22,7 +22,7 @@ sudo make install
 If Kerberos is compiled to a different location, say, `$HOME/usr`, compile Cntlm with:
 
 ```
-./configure --enable-kerberos
+./configure
 export LIBRARY_PATH=$HOME/usr/lib
 export C_INCLUDE_PATH=$HOME/usr/include
 make

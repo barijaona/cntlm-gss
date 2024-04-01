@@ -38,7 +38,7 @@
 #include "scanner.h"
 #include "pages.h"
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 #include "kerberos.h"
 #endif
 
@@ -54,7 +54,7 @@ pthread_mutex_t parent_mtx = PTHREAD_MUTEX_INITIALIZER;
  * Writes required credentials into passed auth_s structure
  */
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 proxy_t *curr_proxy;
 #endif
 
@@ -101,7 +101,7 @@ int proxy_connect(struct auth_s *credentials) {
 			pthread_mutex_unlock(&parent_mtx);
 			syslog(LOG_ERR, "Proxy connect failed, will try %s:%d\n", aux->hostname, aux->port);
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 		} else {
 			//kerberos needs the hostname of the parent proxy for generate the token, so we keep it
 			curr_proxy = aux;
@@ -158,7 +158,7 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 	size_t bufsize = BUFSIZE;
 	buf = new(bufsize);
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 	if(g_creds->haskrb && acquire_kerberos_token(curr_proxy->hostname, credentials,  &buf, &bufsize)) {
 		// pre auth, we try to authenticate directly with kerberos, without to ask if auth is needed
 		// we assume that if kdc releases a ticket for the proxy, then the proxy is configured for kerberos auth
@@ -176,7 +176,7 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 			free(tmp);
 		}
 
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 	}
 #endif
 
@@ -263,7 +263,7 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 		tmp = hlist_get(auth->headers, "Proxy-Authenticate");
 
 		if (tmp) {
-#ifdef ENABLE_KERBEROS		
+#if config_gss == 1
 			if(g_creds->haskrb && strncasecmp(tmp, "NEGOTIATE", 9) == 0 && acquire_kerberos_token(curr_proxy->hostname, credentials, &buf, &bufsize)) {
 				if (debug)
 					printf("Using Negotiation ...\n");
@@ -295,7 +295,7 @@ int proxy_authenticate(int *sd, rr_data_t request, rr_data_t response, struct au
 					goto bailout;
 				}
 				free(challenge);
-#ifdef ENABLE_KERBEROS
+#if config_gss == 1
 			}
 #endif
 		} else {

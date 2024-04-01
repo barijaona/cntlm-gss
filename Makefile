@@ -32,8 +32,8 @@ else
 	OBJS=utils.o ntlm.o xcrypt.o config.o socket.o acl.o auth.o http.o forward.o direct.o scanner.o pages.o main.o
 endif
 
-ENABLE_KERBEROS=$(shell grep -c ENABLE_KERBEROS config/config.h)
-ifeq ($(ENABLE_KERBEROS),1)
+CONFIG_GSS=$(shell grep -c "config_gss 1" config/config.h)
+ifeq ($(CONFIG_GSS),1)
 	OBJS+=kerberos.o
 ifeq ($(OS),Darwin)
 	LDFLAGS+=-framework GSS
